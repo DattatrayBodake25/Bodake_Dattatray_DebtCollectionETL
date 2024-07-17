@@ -1,0 +1,227 @@
+Analysis Report:
+
+Basic Analysis Results:
+
+1. Average Loan Amount for Borrowers More Than 5 Days Past Due
+
+Query:
+      
+        -- A. What is the average loan amount for borrowers who are more than 5 days past due?
+              SELECT AVG(loan_amount) AS average_loan_amount
+              FROM borrowers
+              WHERE delayed_payment = 'Yes' AND days_left_to_pay_current_emi > 5;
+
+Result:
+Average Loan Amount: ₹55,252.49
+
+Interpretation:
+The average loan amount for borrowers who are more than 5 days past due is ₹55,252.49. This figure indicates that borrowers with higher loan amounts may face greater challenges in making timely repayments. It underscores the importance of monitoring and support mechanisms for borrowers with substantial financial obligations to mitigate potential delinquency risks.
+
+
+
+2. Top 10 Borrowers with the Highest Outstanding Balance
+
+Query:
+          -- B. Who are the top 10 borrowers with the highest outstanding balance?
+                SELECT Name, Loan_Amount - SUM(EMI) AS Outstanding_Balance
+                FROM borrowers
+                GROUP BY Name, Loan_Amount
+                ORDER BY Outstanding_Balance DESC
+                LIMIT 10;
+
+Results:
+Vaibhav Sharaf - ₹92,509.31
+Anahi Tank - ₹91,852.98
+Riya Raju - ₹91,812.43
+Zain Bal - ₹91,752.51
+Adira Sekhon - ₹91,379.70
+Kimaya Contractor - ₹91,357.83
+Kanav Chowdhury - ₹91,293.41
+Heer Ratti - ₹91,233.31
+Hrishita Babu - ₹91,216.82
+Samarth Ranganathan - ₹91,187.84
+
+Interpretation:
+These borrowers have the highest outstanding balances, representing a higher risk if these amounts remain unpaid.The top 10 borrowers with the highest outstanding balances are significant in terms of financial exposure for the lending institution. These individuals owe substantial amounts beyond what they have already repaid (EMIs deducted). This analysis highlights the need for proactive management of these accounts to minimize potential losses and ensure timely recovery efforts.
+
+
+
+
+3. Borrowers with Good Repayment History
+
+Query:
+
+             -- C. List of all borrowers with good repayment history
+                   SELECT Name, Repayment_History
+                   FROM Borrowers
+                   WHERE Delayed_Payment = 'No';
+
+Results:
+Here are the some top Borrowers with a good repayment history include:
+
+Khushi Balan
+Adira Dara
+Kartik Kade
+Rohan Sekhon
+Rati Swaminathan
+Jayant Balan
+Alisha Dube
+Jiya Sekhon
+Baiju Tella
+Ritvik Devi
+Nakul Lad
+Akarsh Kapoor
+Shlok Kamdar
+Faiyaz Mand
+Jivika Bail
+Ritvik Lad
+
+Interpretation:
+These borrowers exhibit consistent repayment behavior, posing lower risk and potential for fostering long-term customer relationships.Borrowers with a good repayment history, as indicated by no delayed payments, are essential assets for maintaining a healthy loan portfolio. Their consistent payment behavior not only reduces the risk of defaults but also enhances the lender's reputation for reliability and customer satisfaction. Identifying and nurturing such borrowers can lead to long-term loyalty and potential referrals within the lending community.
+
+
+
+
+4. Loan Type Analysis
+
+Query:
+         
+           SELECT Loan_Type,
+                  COUNT(*) AS Number_of_Borrowers,
+                  AVG(Credit_Score) AS Average_Credit_Score,
+                  AVG(Loan_Amount) AS Average_Loan_Amount,
+                  AVG(Interest_Rate) AS Average_Interest_Rate
+           FROM Borrowers
+           GROUP BY Loan_Type;
+
+
+Results:
+
+Auto Loan:
+Number of Borrowers: 1660
+Average Credit Score: 567.52
+Average Loan Amount: ₹55,298.73
+Average Interest Rate: 20.11%
+
+Personal Loan:
+Number of Borrowers: 1680
+Average Credit Score: 577.98
+Average Loan Amount: ₹54,971.88
+Average Interest Rate: 20.17%
+
+Home Loan:
+Number of Borrowers: 1660
+Average Credit Score: 572.61
+Average Loan Amount: ₹55,613.11
+Average Interest Rate: 19.92%
+
+Interpretation:
+The analysis across different loan types—Auto, Personal, and Home loans—reveals distinct patterns in borrower demographics and financial behaviors. Personal loans show slightly higher average credit scores compared to Auto and Home loans, suggesting potentially lower risk profiles. Home loans, on the other hand, feature higher average loan amounts but lower interest rates, reflecting their long-term nature and secured collateral. These insights are crucial for tailoring loan offerings and risk management strategies according to borrower preferences and financial capacities.
+
+
+
+5. Loan Purpose Analysis by Loan Type
+
+Query:
+            SELECT Loan_Type,
+                   Loan_Purpose,
+                   COUNT(*) AS Number_of_Borrowers
+            FROM Borrowers
+            GROUP BY Loan_Type, Loan_Purpose
+            ORDER BY Loan_Type, Number_of_Borrowers DESC;
+
+Results:
+Auto Loan:
+Education Fees: 365 borrowers
+Medical Emergency: 332 borrowers
+Wedding Expenses: 332 borrowers
+Home Renovation: 317 borrowers
+Debt Consolidation: 314 borrowers
+
+Home Loan:
+Debt Consolidation: 365 borrowers
+Education Fees: 342 borrowers
+Wedding Expenses: 336 borrowers
+Home Renovation: 312 borrowers
+Medical Emergency: 305 borrowers
+
+Personal Loan:
+Education Fees: 346 borrowers
+Medical Emergency: 344 borrowers
+Debt Consolidation: 341 borrowers
+Home Renovation: 327 borrowers
+Wedding Expenses: 322 borrowers
+
+Interpretation:
+Understanding the primary reasons borrowers seek loans—such as education fees, medical emergencies, and home renovations—across different loan types helps in aligning product offerings with customer needs. For instance, auto loans frequently fund education fees and medical emergencies, indicating a demand for flexible financing options for unexpected expenses. This knowledge enables lenders to customize loan terms and conditions to better cater to specific borrower requirements, thereby enhancing customer satisfaction and retention.
+
+
+
+6. Geographical Analysis of Borrowers by Loan Type
+
+Query:
+
+               SELECT Loan_Type,
+                      Geographical_Location,
+                      COUNT(*) AS Number_of_Borrowers
+               FROM Borrowers
+               GROUP BY Loan_Type, Geographical_Location
+               ORDER BY Loan_Type, Number_of_Borrowers DESC;
+
+
+Results:
+Auto Loan:
+Aurangabad: 17 borrowers
+Ghaziabad: 15 borrowers
+Kolhapur: 12 borrowers
+Anantapur: 12 borrowers
+Muzaffarpur: 11 borrowers
+Ongole: 11 borrowers
+
+Interpretation:
+The geographical distribution of borrowers across loan types provides valuable insights into regional market dynamics and customer preferences. For instance, Aurangabad emerges as a significant hub for auto loan borrowers, suggesting a local demand for vehicle financing solutions. This geographic analysis informs strategic decisions related to market expansion, customer acquisition, and targeted marketing campaigns tailored to regional preferences and economic conditions.
+
+
+
+7. Loan Term Analysis by Loan Type
+
+Query:
+
+            SELECT Loan_Type,
+                   Loan_Term,
+                   COUNT(*) AS Number_of_Borrowers
+            FROM Borrowers
+            GROUP BY Loan_Type, Loan_Term
+            ORDER BY Loan_Type, Loan_Term;
+
+Results:
+
+Auto Loan:
+1 year: 93 borrowers
+2 years: 90 borrowers
+3 years: 99 borrowers
+4 years: 128 borrowers
+
+Interpretation:
+Analyzing loan term preferences among borrowers reveals distinct trends across loan types. In auto loans, a notable preference for 3 to 4-year terms indicates borrower confidence in longer repayment periods aligned with vehicle depreciation and usage patterns. This insight allows lenders to offer flexible terms that accommodate borrower needs while optimizing loan portfolio management and risk mitigation strategies. Understanding these preferences enhances product competitiveness and customer satisfaction by aligning repayment schedules with borrower financial capabilities and preferences.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
