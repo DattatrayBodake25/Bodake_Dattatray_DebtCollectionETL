@@ -25,7 +25,7 @@ This project involves performing an ETL (Extract, Transform, Load) process on a 
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/YourGitHubUsername/Bodake_Dattatray_DebtCollectionETL.git
+    git clone https://github.com/DattatrayBodake25/Bodake_Dattatray_DebtCollectionETL.git
     cd Bodake_Dattatray_DebtCollectionETL
     ```
 
